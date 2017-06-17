@@ -7,11 +7,12 @@ import reducers from './reducers'
 import PhotoDetail from './components/photo_detail';
 import {createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
-import Login from './components/login';
 import * as firebase from "firebase";
+import App from './App'
+import promise from 'redux-promise';
 
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 var config = {
   apiKey:"AIzaSyDwqEk05W6nrGAlb8XNynq4dhatVr6U330",
   authDomain:"photoglyph-b4155.firebaseapp.com",
@@ -21,13 +22,7 @@ var config = {
 firebase.initializeApp(config);
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-  <BrowserRouter>
-    <div>
-      <Route path="/" component={Login}/>
-      {/* <Route path="/profiles/:id" component={Profile}/>
-      <Route path="/profiles/:id/:photo" component={PhotoDetail}/> */}
-      </div>
-  </BrowserRouter>
-</Provider>,
+    < App />
+  </Provider>,
    document.getElementById('root'));
 registerServiceWorker();

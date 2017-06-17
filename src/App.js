@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import PhotoDetail from './components/photo_detail';
+import PhotoList from './containers/photo_list';
 class App extends Component {
-  render() {
+  constructor(){
+    super();
+    this.state = {
+      photos: []
+    };
+    }
+  render(){
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>HEllos World</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <PhotoDetail />
+        <PhotoList />
       </div>
     );
   }
