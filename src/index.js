@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
-import {BrowserRouter, Route} from 'react-router-dom';
 import reducers from './reducers'
-import PhotoDetail from './components/photo_detail';
 import {createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 import * as firebase from "firebase";

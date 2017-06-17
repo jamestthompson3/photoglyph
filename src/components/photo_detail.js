@@ -13,8 +13,9 @@ class PhotoDetail extends Component {
   }
   render() {
     return (
-      <div>
-        <h1><a onClick={this.onClickSend}>hello</a></h1>
+      <div className="center container">
+        <h1>Welcome to Photoglyph!</h1>
+        <h3><a onClick={this.onClickSend}>Random</a></h3>
       </div>
     );
   }

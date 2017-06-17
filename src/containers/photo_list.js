@@ -2,15 +2,22 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 class PhotoList extends Component {
   renderPhotos(photoData) {
-    return (
-    console.log("photo data bieng passed by props",photoData.photos)
-    <img href=`https://farm${photoData.photos.photo.farm}.staticflickr.com/${photoData.photos.photo.server}/${data.id}_${photoData.photos.photo.secret}_z.jpg`>
-  </img>
-  );
+    return (photoData.photos.photo.map(photo=>
+      <div className="center col col-12 sm-col-6 md-col-6 lg-col-12 px2 mb3">
+      <img
+        key={photo.id}
+        src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`}
+        style={{margin:50+"px"}}
+        className="fit"
+      />
+    </div>
+    )
+);
   }
   render(){
     return (
-      <div>
+      <div
+        className="clearfix">
         {this.props.photos.map(this.renderPhotos)}
       </div>
     )
