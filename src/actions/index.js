@@ -8,6 +8,7 @@ const query = queryString.stringify({
     user_id: "136276171@N05",
     per_page: 100,
     page: 1,
+    privacy_filter: [1,2,3,4,5],
     format: 'json',
     media: 'photos',
     nojsoncallback: 1
