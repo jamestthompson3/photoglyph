@@ -30,7 +30,7 @@ function CategoryDownshift({
         inputValue,
         highlightedIndex,
       }) =>
-        <div {...getRootProps()} style={{margin:'auto'}}>
+        <div style={{margin:'auto'}}>
           <Select {...getButtonProps({onClick: onToggleMenu})}>
               {
                 selectedItem
