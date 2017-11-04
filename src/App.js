@@ -1,23 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import PhotoDetail from './components/photo_detail';
-import PhotoList from './containers/photo_list';
+import React, { Component } from 'react'
+import styled from 'styled-components'
+
+import PhotoList from './containers/photo_list'
+
+const Fullpage = styled.div`
+  background: #2d2f33;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  color: #dbdbdb;
+  overflow-x: hidden;
+  position: absolute;
+`
 class App extends Component {
-  constructor(){
-    super();
-    this.state = {
-      photos: []
-    };
-    }
   render(){
     return (
-      <div>
-        <PhotoDetail />
+      <Fullpage>
         <PhotoList />
-      </div>
-    );
+      </Fullpage>
+    )
   }
 }
 
-export default App;
+export default App

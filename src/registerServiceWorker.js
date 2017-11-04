@@ -15,6 +15,7 @@ export default function register() {
       navigator.serviceWorker
         .register(swUrl)
         .then(registration => {
+          console.log('service worker registered')
           registration.onupdatefound = () => {
             const installingWorker = registration.installing;
             installingWorker.onstatechange = () => {

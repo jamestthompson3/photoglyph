@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
-import './index.css';
 import reducers from './reducers'
 import {createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
@@ -20,7 +19,7 @@ var config = {
 firebase.initializeApp(config);
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-    < App />
+    <App />
   </Provider>,
    document.getElementById('root'));
 registerServiceWorker();
