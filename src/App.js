@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
+import * as actions from './actions'
 import PhotoList from './containers/photo_list'
 
 const Fullpage = styled.div`
@@ -13,6 +15,9 @@ const Fullpage = styled.div`
   position: absolute;
 `
 class App extends Component {
+  componentDidMount() {
+    this.props.setList()
+  }
   render(){
     return (
       <Fullpage>
@@ -22,4 +27,10 @@ class App extends Component {
   }
 }
 
-export default App
+const mapDispatchToProps = dispatch => {
+  return {
+      setList: () => dispatch(actions.setList())
+  }
+}
+
+export default connect(null,mapDispatchToProps)(App)

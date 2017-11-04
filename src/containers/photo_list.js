@@ -1,61 +1,165 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import request from 'superagent'
-import queryString from 'query-string'
 import styled from 'styled-components'
+import Downshift from 'downshift'
 
 const imageStyles = {
-  maxWidth: '350px',
-  marginTop: '1rem',
-  marginBottom: '1rem'
+  // maxWidth: '350px',
+  margin: '1rem'
 }
 
+function CategoryDownshift({
+  items,
+  onRemoveItem,
+  onToggleMenu,
+  addSelectedItem,
+  ...rest
+}) {
+  return (
+  <Downshift {...rest}>
+    {({
+        getRootProps,
+        getInputProps,
+        getButtonProps,
+        getItemProps,
+        isOpen,
+        toggleMenu,
+        clearSelection,
+        selectedItem,
+        inputValue,
+        highlightedIndex,
+      }) =>
+        <div {...getRootProps()} style={{margin:'auto'}}>
+          <Select {...getButtonProps({onClick: onToggleMenu})}>
+              {
+                selectedItem
+                ? selectedItem.label
+                : 'select a category   🔍'
+              }
+          </Select>
+          {!isOpen
+            ? null
+            : <div>
+                {items.map((item, index) =>
+                  <Category
+                    key={item.label}
+                    {...getItemProps({
+                      item,
+                      index,
+                      isActive: highlightedIndex === index,
+                      isSelected: selectedItem === item
+                    })}
+                  >
+                    {item.label}
+                  </Category>,
+                )}
+              </div>}
+        </div>}
+    </Downshift>
+)}
 const ImageContainer = styled.div`
   height: 100%;
   width: 100%;
 `
+const Category = styled.div`
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid;
+  border-radius: 5px;
+  text-align: center;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  background: ${({isActive}) => isActive ? '#6d6d6d' : 'transparent'};
+  &: hover {
+    background: #6d6d6d;
+  }
+`
+const CategoryContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  width: 85%;
+`
+const Select = styled.button`
+  border: 1px solid #c1c1c1;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px;
+  margin: auto;
+  background: #717171;
+  &: active {
+    outline: none;
+  }
+  &: focus {
+    outline: none;
+  }
+`
+const options = [
+  { label: '🌍 Earth', value: 'earthporn' },
+  { label: '🏛 Architecture', value: 'architectureporn' },
+  { label: '🚀 Space', value: 'spaceporn' },
+  { label: '😳 Random', value: 'random' }
+]
+
 
 class PhotoList extends Component {
 
   state = {
     photos: [],
-    loading: true
+    loading: true,
+    selectedItem: null,
+    isOpen: false
   }
 
-  onClickSend = () => {
-    this.fetchPictures()
-  }
 
-  fetchPictures = () => {
-    request.get('https://www.reddit.com/r/earthporn/new.json')
+  fetchPictures = (category) => {
+    category === 'random'
+    ? this.fetchRandom()
+    : request.get(`https://www.reddit.com/r/${category}/new.json`)
       .then(({ body: {data: {children}} }) =>
         this.setState({photos: children.map(({data}) => data), loading: false})
-    // const query = queryString.stringify({
-    //     method: 'flickr.photosets.getPhotos',
-    //     api_key: "06d880ae1de1bd8027f1c803a4588d79",
-    //     photoset_id: "72157672490359490",
-    //     user_id: "136276171@N05",
-    //     per_page: 100,
-    //     page: 1,
-    //     privacy_filter: [1,2,3,4,5],
-    //     format: 'json',
-    //     media: 'photos',
-    //     nojsoncallback: 1
-    //   })
-
-    // request.get(`https://api.flickr.com/services/rest/?${query}`)
-    //     .then(({ body: {photoset} }) => {
-    //       this.setState({photos: photoset.photo, loading: false})
-    //     })
   )}
 
+  fetchRandom = () => {
+    const { randomList } = this.props
+    const choice = randomList[Math.floor(Math.random()*randomList.length)]
+    this.fetchPictures(choice)
+  }
+
+  handleChange = (selectedItem, downshiftState) => {
+    if (!selectedItem) {
+      this.removeItem(selectedItem);
+    } else {
+      this.addSelectedItem(selectedItem);
+    }
+  }
+
+  addSelectedItem(item) {
+    this.setState({selectedItem: item, isOpen: false})
+    this.fetchPictures(item.value)
+  }
+
+  handleToggleMenu = () => {
+    this.setState(({isOpen}) => ({isOpen: !isOpen}))
+  }
+
   render(){
-    const { loading, photos } = this.state
-    console.log(photos)
+    const { loading, photos, selectedItem, isOpen } = this.state
     return (
       <ImageContainer>
         <h1>Welcome to Photoglyph!</h1>
-        <h3><a onClick={this.onClickSend}>Click Here</a></h3>
+        <CategoryContainer>
+        <CategoryDownshift
+          items={options}
+          onChange={this.handleChange}
+          selectedItem={selectedItem}
+          isOpen={isOpen}
+          onToggleMenu={this.handleToggleMenu}
+        />
+        </CategoryContainer>
         {
           loading
           ? null
@@ -72,8 +176,11 @@ class PhotoList extends Component {
     )
   }
 }
-function mapStateToProps({photos}) {
-  return {photos}
+
+const mapStateToProps = state => {
+  return {
+    randomList: state.randomList,
+  }
 }
 
 export default connect(mapStateToProps)(PhotoList)

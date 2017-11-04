@@ -1,0 +1,25 @@
+[debug] [2017-11-04T21:17:30.187Z] ----------------------------------------------------------------------
+[debug] [2017-11-04T21:17:30.189Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2017-11-04T21:17:30.189Z] CLI Version:   3.14.0
+[debug] [2017-11-04T21:17:30.189Z] Platform:      darwin
+[debug] [2017-11-04T21:17:30.189Z] Node Version:  v9.0.0
+[debug] [2017-11-04T21:17:30.190Z] Time:          Sat Nov 04 2017 23:17:30 GMT+0200 (EET)
+[debug] [2017-11-04T21:17:30.190Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-04T21:17:30.203Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-04T21:17:30.203Z] > authorizing via signed-in user
+[debug] [2017-11-04T21:17:30.205Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2017-11-04T21:17:30.205Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/3rkFLi1r-0LIh2cKnonpKXRGjVkBXqKNqpMpy2Bp6Ig',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sat Nov 04 2017 23:17:30 GMT+0200 (EET)
+[debug] [2017-11-04T21:17:30.514Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-04T21:17:30.562Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/trim-mote-171000  
+ Sat Nov 04 2017 23:17:30 GMT+0200 (EET)
+[debug] [2017-11-04T21:17:31.542Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-04T21:17:31.544Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/trim-mote-171000/tokens  
+ Sat Nov 04 2017 23:17:31 GMT+0200 (EET)
+[debug] [2017-11-04T21:17:32.334Z] <<< HTTP RESPONSE 200
+[info] 1

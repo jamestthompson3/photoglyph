@@ -3,19 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- Touch Icons -->
+    <!-- In most cases, one 180×180px touch icon in the head is enough -->
+    <link rel="apple-touch-icon" href="/path/to/apple-touch-icon.png">
+
+    <!-- Startup Image ( Deprecated ) -->
+    <link rel="apple-touch-startup-image" href="/path/to/startup.png">
     <meta name="apple-mobile-web-app-title" content="Photoglyph">
     <meta property="og:title" content="photoglyph">
     <meta property="og:description" content="a place for photos">
     <meta name="theme-color" content="#2d2f33">
-    <meta name="mobile-web-app-capable" content="yes">
+
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/photoglyph.png">
+    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="dns-prefetch">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -36,6 +44,7 @@
     body {
       margin: 0;
       padding: 0;
+      font-family: 'Oxygen', sans-serif;
     }
   </style>
     <noscript>

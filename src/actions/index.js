@@ -21,3 +21,21 @@ export function fetchPictures() {
     payload: request
   };
 }
+
+export function setList() {
+    const subreddits = [
+    'roomporn',
+    'abandonedporn',
+    'colorizedhistory',
+    'pics',
+    'mildlyinteresting',
+    'foodporn',
+    'wallpapers',
+    'itookapicture',
+    'oldschoolcool'
+    ]
+    return {
+        type: 'RANDOM_LIST',
+        list: subreddits
+    }
+}
