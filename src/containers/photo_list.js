@@ -4,9 +4,10 @@ import request from 'superagent'
 import styled from 'styled-components'
 import Downshift from 'downshift'
 
+import Popup from './popup'
+
 const imageStyles = {
-  // maxWidth: '350px',
-  margin: '1rem'
+  maxWidth: '100%'
 }
 
 function CategoryDownshift({
@@ -61,10 +62,12 @@ function CategoryDownshift({
 const ImageContainer = styled.div`
   height: 100%;
   width: 100%;
+  text-align: center;
+  filter: ${({modal}) => modal ? 'blur(3px)' : 'none'};
 `
 const Category = styled.div`
   padding: 8px;
-  font-size: 14px;
+  font-size: 16px;
   border: 1px solid;
   border-radius: 5px;
   text-align: center;
@@ -76,6 +79,23 @@ const Category = styled.div`
     background: #6d6d6d;
   }
 `
+const Overlay = styled.div`
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.69);
+  display: ${({modal}) => modal ? 'block' : 'none'};
+  position: absolute;
+`
+const TextContainer = styled.div`
+  height: 15%;
+  background: rgba(0, 0, 0, 0.45);
+  width: 100%;
+  position: relative;
+  top: -20%;
+  color: #dbdbdb;
+  padding: 8px;
+  text-align: center;
+`
 const CategoryContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -86,7 +106,7 @@ const Select = styled.button`
   border: 1px solid #c1c1c1;
   border-radius: 5px;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   padding: 8px;
   margin: auto;
   background: #717171;
@@ -96,6 +116,13 @@ const Select = styled.button`
   &: focus {
     outline: none;
   }
+`
+const ModalBody = styled.div`
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 280px;
+  z-index: 100;
 `
 const options = [
   { label: '🌍 Earth', value: 'earthporn' },
@@ -111,7 +138,9 @@ class PhotoList extends Component {
     photos: [],
     loading: true,
     selectedItem: null,
-    isOpen: false
+    isOpen: false,
+    modal: false,
+    photo: null
   }
 
 
@@ -146,10 +175,19 @@ class PhotoList extends Component {
     this.setState(({isOpen}) => ({isOpen: !isOpen}))
   }
 
+  renderPop = (selectedPhoto) => {
+    const { modal } = this.state
+    this.setState({ photo: selectedPhoto, modal: !modal})
+  }
+
+  toggleModal = () => this.setState({modal: false})
+
   render(){
-    const { loading, photos, selectedItem, isOpen } = this.state
+    const { loading, photos, selectedItem, isOpen, modal, photo } = this.state
+    console.log(this.state)
     return (
-      <ImageContainer>
+      <ImageContainer modal={modal}>
+      <Overlay modal={modal} onClick={this.toggleModal}/>
         <h1>Welcome to Photoglyph!</h1>
         <CategoryContainer>
         <CategoryDownshift
@@ -169,8 +207,25 @@ class PhotoList extends Component {
               alt={photo.title}
               src={photo.thumbnail}
               style={imageStyles}
+              onClick={() => this.renderPop(photo)}
             />
           )
+        }
+        {
+          modal
+          ? <Popup>
+            <ModalBody>
+              <img
+                src={photo.url}
+                alt={photo.title}
+                style={{maxWidth:'100%',minHeight:'280px'}}
+              />
+              <TextContainer>
+                {photo.title}
+            </TextContainer>
+            </ModalBody>
+          </Popup>
+          : null
         }
       </ImageContainer>
     )

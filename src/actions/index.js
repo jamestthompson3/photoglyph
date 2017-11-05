@@ -32,7 +32,10 @@ export function setList() {
     'foodporn',
     'wallpapers',
     'itookapicture',
-    'oldschoolcool'
+    'oldschoolcool',
+    'aww',
+    'aestheticrain',
+    'roadporn'
     ]
     return {
         type: 'RANDOM_LIST',
