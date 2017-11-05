@@ -80,7 +80,7 @@ const Category = styled.div`
   }
 `
 const Overlay = styled.div`
-  height: 100%;
+  height: 300vh;
   width: 100%;
   background: rgba(0, 0, 0, 0.69);
   display: ${({modal}) => modal ? 'block' : 'none'};
@@ -91,7 +91,7 @@ const TextContainer = styled.div`
   background: rgba(0, 0, 0, 0.45);
   width: 100%;
   position: relative;
-  top: -20%;
+  top: -22%;
   color: #dbdbdb;
   padding: 8px;
   text-align: center;
@@ -184,7 +184,6 @@ class PhotoList extends Component {
 
   render(){
     const { loading, photos, selectedItem, isOpen, modal, photo } = this.state
-    console.log(this.state)
     return (
       <ImageContainer modal={modal}>
       <Overlay modal={modal} onClick={this.toggleModal}/>
